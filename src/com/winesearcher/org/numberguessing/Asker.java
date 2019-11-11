@@ -5,6 +5,7 @@ public class Asker {
 
 	public Asker(int answer) {
 		this.answer = answer;
+		System.out.println("The puzzle is " + answer + ". Start guessing...");
 	}
 
 	/**
@@ -12,9 +13,22 @@ public class Asker {
 	 * @return correct count of the guess
 	 */
 	public int checkGuess(int guessNum) {
+		String guessString = String.valueOf(guessNum);
 		if (guessNum == answer) {
-			return String.valueOf(guessNum).length();
+			return guessString.length();
+		} else {
+			String answerString = String.valueOf(answer);
+			int length = Math.min(answerString.length(), guessString.length());
+			int result = 0;
+			for (int i = 0; i < length; i++) {
+				char answerChar = answerString.charAt(answerString.length() - i - 1);
+				char guessChar = guessString.charAt(guessString.length() - i - 1);
+				if (answerChar == guessChar) {
+					result++;
+				}
+			}
+			System.out.println("Guessed " + guessNum + ", got " + result + " digits corrected");
+			return result;
 		}
-		return 0;
 	}
 }
